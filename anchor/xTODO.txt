@@ -1,0 +1,13 @@
+1. Apparently we might need a seperate state for doing approvals
+#[account]
+#[derive(InitSpace)]
+pub struct Approval {
+    pub bank_owner: Pubkey,          // Owner of the bank being approved
+    pub delegate: Pubkey,            // Who can spend the tokens
+    pub approved_amount: u64,        // How much can be spent
+    pub remaining_amount: u64,       // How much is left to spend
+    pub created_at: i64,             // When approval was granted
+    pub expires_at: Option<i64>,     // Optional expiration
+}
+
+
