@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
-    "types": ["mocha", "chai"],
-    "typeRoots": ["./node_modules/@types"],
-    "lib": ["es2015"],
+    "target": "ES2020",
     "module": "commonjs",
-    "target": "es6",
+    "lib": ["ES2020"],
+    "types": ["node"],
     "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
+    "skipLibCheck": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node"
+  },
+  "include": ["scripts/**/*"],
+  "exclude": ["node_modules"]
 }

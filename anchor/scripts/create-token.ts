@@ -20,10 +20,10 @@ import {
   Transaction,
 } from "@solana/web3.js";
 import { readFileSync } from "fs";
-import { connection, payer } from "./utils/connection";
+import { connection, mintAuthority } from "./utils/connection";
 
 export class TokenCreator {
-  constructor(private connection: Connection, private payer: Keypair) {}
+  constructor(private connection: Connection, private mintAuthority: Keypair) {}
 
   async createToken(
     name: string,
@@ -65,7 +65,7 @@ export class TokenCreator {
     //Create Account transaction
     transaction.add(
       SystemProgram.createAccount({
-        fromPubkey: this.payer.publicKey,
+        fromPubkey: this.mintAuthority.publicKey,
         newAccountPubkey: mint.publicKey,
         space: mintLen,
         lamports,
@@ -77,7 +77,7 @@ export class TokenCreator {
     transaction.add(
       createInitializeMetadataPointerInstruction(
         mint.publicKey,
-        this.payer.publicKey,
+        this.mintAuthority.publicKey,
         mint.publicKey,
         TOKEN_2022_PROGRAM_ID
       )
@@ -88,8 +88,8 @@ export class TokenCreator {
       createInitializeMintInstruction(
         mint.publicKey,
         decimals,
-        this.payer.publicKey,
-        this.payer.publicKey,
+        this.mintAuthority.publicKey,
+        this.mintAuthority.publicKey,
         TOKEN_2022_PROGRAM_ID
       )
     );
@@ -103,8 +103,8 @@ export class TokenCreator {
         name,
         symbol,
         uri: "",
-        mintAuthority: this.payer.publicKey,
-        updateAuthority: this.payer.publicKey,
+        mintAuthority: this.mintAuthority.publicKey,
+        updateAuthority: this.mintAuthority.publicKey,
       })
     );
 
@@ -112,7 +112,7 @@ export class TokenCreator {
     const signature = await sendAndConfirmTransaction(
       this.connection,
       transaction,
-      [this.payer, mint]
+      [this.mintAuthority, mint]
     );
     
     console.log("Token Created! Signature: ", signature);
@@ -120,9 +120,9 @@ export class TokenCreator {
     // Create a associated token account and mint initial supply
     const associatedTokenAccount = await createAssociatedTokenAccount(
       this.connection,
-      this.payer,
+      this.mintAuthority,
       mint.publicKey,
-      this.payer.publicKey,
+      this.mintAuthority.publicKey,
       {},
       TOKEN_2022_PROGRAM_ID
     );
@@ -133,10 +133,10 @@ export class TokenCreator {
 
     await mintTo(
       this.connection,
-      this.payer,
+      this.mintAuthority,
       mint.publicKey,
       associatedTokenAccount,
-      this.payer.publicKey,
+      this.mintAuthority.publicKey,
       supply * Math.pow(10, decimals),
       [],
       {},
@@ -158,7 +158,7 @@ async function main() {
 
   //Airdrop some SOL for testing
   const airdropSignature = await connection.requestAirdrop(
-    payer.publicKey,
+    mintAuthority.publicKey,
     2 * 1e9
   );
   const latestBlockHash = await connection.getLatestBlockhash();
@@ -169,7 +169,7 @@ async function main() {
     signature: airdropSignature,
   });
 
-  const tokenCreator = new TokenCreator(connection, payer);
+  const tokenCreator = new TokenCreator(connection, mintAuthority);
 
   await tokenCreator.createToken("JPToken", "JPT", 6, 1000);
 }

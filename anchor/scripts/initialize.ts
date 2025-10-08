@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 import { TOKEN_2022_PROGRAM_ID } from "@solana/spl-token";
-import { connection, payer, program } from "./utils/connection";
+import { connection, user1, user2, program } from "./utils/connection";
 import {
   getBankPda,
   getBankTokenAccountPda,
@@ -9,25 +9,27 @@ import {
 import { ensureSolBalance } from "./utils/helpers";
 
 async function initializeProgram() {
-  console.log("Initializing Bank Program");
+  const user = user1; 
 
-  await ensureSolBalance(connection, payer.publicKey);
+  console.log("Initializing Bank Account for user: ", user.publicKey.toBase58());
 
-  const [bankPda, bankBump] = getBankPda();
-  const [bankTokenAccountPda, bankTokenAccountBump] = getBankTokenAccountPda();
+  await ensureSolBalance(connection, user.publicKey);
+
+  const [bankPda, bankBump] = getBankPda(user);
+  const [bankTokenAccountPda, bankTokenAccountBump] = getBankTokenAccountPda(user);
 
   try {
     const tx = await program.methods
       .initBank()
       .accounts({
-        user: payer.publicKey,
+        user: user.publicKey,
         mint: TOKEN_MINT,
         bank: bankPda,
         bankTokenAccount: bankTokenAccountPda,
         systemProgram: anchor.web3.SystemProgram.programId,
         tokenProgram: TOKEN_2022_PROGRAM_ID,
       } as any)
-      .signers([payer])
+      .signers([user])
       .rpc();
 
     console.log("Initialize transaction signature:", tx);
