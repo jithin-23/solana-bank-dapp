@@ -34,7 +34,10 @@ export class TokenCreator {
     console.log("Creating Token-2022 with metadata...");
 
     const mintKeypairData = JSON.parse(
-      readFileSync("./keypairs/JPTm3R4yeUhh5qeyU1uSo4Ex13qm2vhzGrkH5VspZxa.json", "utf8")
+      readFileSync(
+        "./keypairs/JPTm3R4yeUhh5qeyU1uSo4Ex13qm2vhzGrkH5VspZxa.json",
+        "utf8"
+      )
     );
     const mint = Keypair.fromSecretKey(new Uint8Array(mintKeypairData));
     // const mint = Keypair.generate();
@@ -114,7 +117,7 @@ export class TokenCreator {
       transaction,
       [this.mintAuthority, mint]
     );
-    
+
     console.log("Token Created! Signature: ", signature);
 
     // Create a associated token account and mint initial supply
@@ -145,7 +148,6 @@ export class TokenCreator {
 
     console.log(`Minted ${supply} ${symbol} tokens`);
 
-
     return {
       mintAddress: mint.publicKey,
       tokenAccount: associatedTokenAccount,
@@ -154,8 +156,7 @@ export class TokenCreator {
   }
 }
 
-async function main() {
-
+async function deployToken() {
   //Airdrop some SOL for testing
   const airdropSignature = await connection.requestAirdrop(
     mintAuthority.publicKey,
@@ -175,5 +176,7 @@ async function main() {
 }
 
 if (require.main === module) {
-  main().catch(console.error);
+  deployToken().catch(console.error);
 }
+
+export { deployToken };

@@ -85,7 +85,7 @@ pub struct Transfer<'info> {
     #[account(
       mut,
       associated_token::mint = mint,
-      associated_token::authority = from,
+      associated_token::authority = to,
       associated_token::token_program = token_program
     )]
     pub to_token_account: InterfaceAccount<'info, TokenAccount>,

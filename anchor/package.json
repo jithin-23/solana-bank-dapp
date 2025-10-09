@@ -5,7 +5,11 @@
     "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
     "localnet": "solana-test-validator --reset",
     "create-token": "npx ts-node scripts/create-token.ts",
-    "setup": "ts-node scripts/initialize.ts"
+    "setup": "ts-node scripts/instructions/initialize.ts",
+    "deposit": "ts-node scripts/instructions/deposit.ts",
+    "withdraw": "ts-node scripts/instructions/withdraw.ts",
+    "transfer": "ts-node scripts/instructions/transfer.ts",
+    "start:test": "ts-node scripts/test.ts"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.31.1",

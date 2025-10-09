@@ -1,31 +1,37 @@
 import { Connection, Keypair } from "@solana/web3.js";
-import { localhostEndpoint } from "./constants";
 import { readFileSync } from "fs";
 import { AnchorProvider, Program, Wallet } from "@coral-xyz/anchor";
-import idl from '../../target/idl/bank.json'
-import { Bank } from '../../target/types/bank'
+import idl from "../../target/idl/bank.json";
+import { Bank } from "../../target/types/bank";
+
+export const devnetEndpoint = "https://api.devnet.solana.com";
+export const localhostEndpoint = `http://127.0.0.1:8899`;
 
 // Connection
-export const connection = new Connection(localhostEndpoint, 'confirmed');
+export const connection = new Connection(localhostEndpoint, "confirmed");
 
 // Load keypairs
 export function loadKeypair(path: string): Keypair {
-  const keypairData = JSON.parse(readFileSync(path, 'utf8'));
+  const keypairData = JSON.parse(readFileSync(path, "utf8"));
   return Keypair.fromSecretKey(new Uint8Array(keypairData));
 }
 
 // Program setup
 export function createProgram(wallet: Wallet): Program<Bank> {
   const provider = new AnchorProvider(connection, wallet, {
-    preflightCommitment: 'confirmed',
+    preflightCommitment: "confirmed",
   });
-  
+
   return new Program(idl as Bank, provider);
 }
 
 // User keypairs
-export const user1 = loadKeypair('./keypairs/jitgabCEJMy37dfkGpY1fRPCiovsvNiUivKTiqwpazn.json');
-export const user2 = loadKeypair('./keypairs/dyuVd64Z4nNqFmrcQKhMnfzwssQDSHcoipvVa9UvzpM.json');
+export const user1 = loadKeypair(
+  "./keypairs/jitgabCEJMy37dfkGpY1fRPCiovsvNiUivKTiqwpazn.json"
+);
+export const user2 = loadKeypair(
+  "./keypairs/dyuVd64Z4nNqFmrcQKhMnfzwssQDSHcoipvVa9UvzpM.json"
+);
 
 // Legacy exports for backward compatibility
 export const mintAuthority = user1; // For simplicity, same as user1

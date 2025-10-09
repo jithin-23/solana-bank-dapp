@@ -1,17 +1,17 @@
 import * as anchor from "@coral-xyz/anchor";
 import { TOKEN_2022_PROGRAM_ID } from "@solana/spl-token";
-import { connection, user1, user2, program } from "./utils/connection";
+import { connection, user1, user2, program } from "../utils/connection";
 import {
   getBankPda,
   getBankTokenAccountPda,
   TOKEN_MINT,
-} from "./utils/constants";
-import { ensureSolBalance } from "./utils/helpers";
+} from "../utils/constants";
+import { ensureSolBalance } from "../utils/helpers";
+import { Keypair } from "@solana/web3.js";
 
-async function initializeProgram() {
-  const user = user1; 
+async function initializeProgram(user: Keypair) {
 
-  console.log("Initializing Bank Account for user: ", user.publicKey.toBase58());
+  console.log(`\n🏦 [INITIALIZE] Initializing bank account for user: ${user.publicKey.toBase58()}`);
 
   await ensureSolBalance(connection, user.publicKey);
 
@@ -32,14 +32,14 @@ async function initializeProgram() {
       .signers([user])
       .rpc();
 
-    console.log("Initialize transaction signature:", tx);
+    console.log(`✅ [INITIALIZE] Bank account initialized successfully for user: ${user.publicKey.toBase58()}`);
   } catch (error) {
-    console.error("Error initializing program:", error);
+    console.error("❌ [INITIALIZE] Error initializing program:", error);
   }
 }
 
 if (require.main === module) {
-  initializeProgram().catch(console.error);
+  initializeProgram(user1).catch(console.error);
 }
 
 export { initializeProgram };
