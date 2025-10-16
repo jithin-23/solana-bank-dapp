@@ -158,17 +158,17 @@ export class TokenCreator {
 
 async function deployToken() {
   //Airdrop some SOL for testing
-  const airdropSignature = await connection.requestAirdrop(
-    mintAuthority.publicKey,
-    2 * 1e9
-  );
-  const latestBlockHash = await connection.getLatestBlockhash();
+  // const airdropSignature = await connection.requestAirdrop(
+  //   mintAuthority.publicKey,
+  //   2 * 1e9
+  // );
+  // const latestBlockHash = await connection.getLatestBlockhash();
 
-  await connection.confirmTransaction({
-    blockhash: latestBlockHash.blockhash,
-    lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-    signature: airdropSignature,
-  });
+  // await connection.confirmTransaction({
+  //   blockhash: latestBlockHash.blockhash,
+  //   lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+  //   signature: airdropSignature,
+  // });
 
   const tokenCreator = new TokenCreator(connection, mintAuthority);
 

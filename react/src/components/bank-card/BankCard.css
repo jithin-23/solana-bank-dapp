@@ -1,0 +1,34 @@
+.bank-card {
+  background-color: #393e46;
+  height: 300px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.card-text {
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.balance-box {
+  background-color: #dfd0b8;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-size: xx-large;
+}
+
+.balance-box p {
+  color: #222831;
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.2;
+}

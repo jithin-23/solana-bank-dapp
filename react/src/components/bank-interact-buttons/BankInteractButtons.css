@@ -1,0 +1,29 @@
+.bank-interact-btn-grp {
+  height: 50px;
+  width: 600px;
+  /* background-color: #393e46; */
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.bank-interact-btn-grp button{
+  width: 120px;
+  height: 50px;
+  cursor: pointer;
+  /* font-size: 100%; */
+  font-weight: 800;
+}
+
+.deposit-btn, .withdraw-btn {
+  background-color: #234C6A;
+}
+
+.transfer-btn {
+  background-color: #E63946;
+}
+
+.deposit-btn:hover, .withdraw-btn:hover {
+  background-color: #1B3C53;
+}
