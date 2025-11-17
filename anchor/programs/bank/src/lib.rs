@@ -37,6 +37,11 @@ pub mod bank {
         Ok(())
     }
 
+    pub fn deposit_from(ctx: Context<DepositFrom>, amount: u64) -> Result<()> {
+        process_deposit_from(ctx, amount)?;
+        Ok(())
+    }
+
     // Instruction to send token from another person's bank to do later
     // pub fn transfer_from(ctx: Context<TransferFrom>, from: Pubkey, to: Pubkey, amount: u64 ) -> Result<()> {
     //     Ok(())

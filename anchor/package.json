@@ -9,6 +9,8 @@
     "deposit": "ts-node scripts/instructions/deposit.ts",
     "withdraw": "ts-node scripts/instructions/withdraw.ts",
     "transfer": "ts-node scripts/instructions/transfer.ts",
+    "approve": "ts-node scripts/instructions/getApproval.ts",
+    "depositFrom": "ts-node scripts/instructions/depositFrom.ts",
     "start:test": "ts-node scripts/test.ts"
   },
   "dependencies": {
