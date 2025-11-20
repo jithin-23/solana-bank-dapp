@@ -41,7 +41,7 @@ async function depositFrom(user: Keypair, from: Keypair, amount: number) {
 
     // Execute deposit transaction
     const tx = await program.methods
-      .depositToBank(new anchor.BN(amount))
+      .depositFrom(new anchor.BN(amount))
       .accounts({
         user: user.publicKey,
         mint: TOKEN_MINT,

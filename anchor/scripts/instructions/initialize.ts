@@ -39,7 +39,7 @@ async function initializeProgram(user: Keypair) {
 }
 
 if (require.main === module) {
-  initializeProgram(user1).catch(console.error);
+  initializeProgram(user2).catch(console.error);
 }
 
 export { initializeProgram };

@@ -12,7 +12,7 @@ bank = "9ojBDTe6p69cwfk5b2x8McD8TtFieAgTQdvWzDYpXs2z"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "devnet"
+cluster = "localnet"
 wallet = "./keypairs/jitgabCEJMy37dfkGpY1fRPCiovsvNiUivKTiqwpazn.json"
 
 [scripts]

@@ -8,7 +8,7 @@ export const devnetEndpoint = "https://api.devnet.solana.com";
 export const localhostEndpoint = `http://127.0.0.1:8899`;
 
 // Connection
-export const connection = new Connection(devnetEndpoint, "confirmed");
+export const connection = new Connection(localhostEndpoint, "confirmed");
 
 // Load keypairs
 export function loadKeypair(path: string): Keypair {

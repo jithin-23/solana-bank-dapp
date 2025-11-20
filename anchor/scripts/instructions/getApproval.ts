@@ -60,7 +60,7 @@ async function getApproval(user: Keypair, spender: PublicKey, amount: number) {
 
 if (require.main === module) {
   // Example: user1 approves user2 to spend 1,000,000 tokens (1 JPT with 6 decimals)
-  getApproval(user1, user2.publicKey, 1_000_000).catch(console.error);
+  getApproval(user1, user2.publicKey, 1000000).catch(console.error);
 }
 
 export { getApproval };

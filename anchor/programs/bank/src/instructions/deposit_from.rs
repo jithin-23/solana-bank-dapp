@@ -12,7 +12,7 @@ pub fn process_deposit_from(ctx: Context<DepositFrom>, amount: u64) -> Result<()
     let from_user_balance = ctx.accounts.from_token_account.amount;
 
     if from_user_balance < amount {
-        msg!("Deposit failed: insufficient balance.");
+        msg!("Deposit failed: insufficient balance: {}", from_user_balance);
         return Err(BankErrors::InsufficientBalance.into());
     }
 
@@ -25,7 +25,7 @@ pub fn process_deposit_from(ctx: Context<DepositFrom>, amount: u64) -> Result<()
         from: ctx.accounts.from_token_account.to_account_info(),
         to: ctx.accounts.bank_token_account.to_account_info(),
         mint: ctx.accounts.mint.to_account_info(),
-        authority: ctx.accounts.from_user.to_account_info(),
+        authority: ctx.accounts.user.to_account_info(),
     };
 
     let cpi_context = CpiContext::new(ctx.accounts.token_program.to_account_info(), cpi_accounts);

@@ -11,7 +11,7 @@
     "transfer": "ts-node scripts/instructions/transfer.ts",
     "approve": "ts-node scripts/instructions/getApproval.ts",
     "depositFrom": "ts-node scripts/instructions/depositFrom.ts",
-    "start:test": "ts-node scripts/test.ts"
+    "start:test": "anchor deploy && ts-node scripts/test.ts"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.31.1",

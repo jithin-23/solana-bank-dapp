@@ -35,7 +35,7 @@ async function runAllTests() {
   console.log("\n--- Approve User2 to spend token of  User1---");
   await getApproval(user1, user2.publicKey, 1_000_000); // Transfer 1 token (6 decimals)
 
-  // Step 5: Deposit tokens from user1 to user2's account
+  // Step 6: Deposit tokens from user1 to user2's account
   console.log("\n--- DepositFrom Tokens from User1 to User2's bank---");
   await depositFrom(user2, user1, 1_000_000); // Transfer 1 token (6 decimals)
 
